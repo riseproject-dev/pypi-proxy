@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: MIT
+service: rise-pypi-proxy
+
+provider:
+  name: scaleway
+  scwRegion: ${env:SCW_DEFAULT_REGION, "fr-par"}
+  scwProject: ${env:SCW_DEFAULT_PROJECT_ID, "02628787-7192-4744-9a0e-afcbfaf30ac6"}
+  scwToken: ${env:SCW_SECRET_KEY}
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+custom:
+  containers:
+    pypi-proxy:
+      registryImage: ${env:REGISTRY}/${env:IMAGE}:sha-${env:GITHUB_SHA}
+      port: 8080
+      cpuLimit: 250
+      memoryLimit: 256
+      minScale: 1
+      maxScale: 3
+      scalingOption:
+        type: concurrentRequests
+        threshold: 80
+      healthCheck:
+        type: http
+        httpPath: /simple/
+        interval: 10s
+        failureThreshold: 3

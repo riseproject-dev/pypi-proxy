@@ -1,0 +1,12 @@
+{
+  "name": "rise-pypi-proxy",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "@aws-sdk/region-config-resolver": "^3.696.0",
+    "serverless": "3.40.0",
+    "serverless-scaleway-functions": "^0.5.1"
+  }
+}

@@ -33,3 +33,5 @@ custom:
         httpPath: /simple/
         interval: 10s
         failureThreshold: 3
+      custom_domains:
+        - pypi.riseproject.dev
